@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <title>Tech Blog</title>
 </head>
 <body>
@@ -22,44 +23,43 @@
   </header>
 
   <main>
-    <h2>Blog Posts</h2>
-    {{#if posts.length}}
-      <ul>
-        {{!-- Loop through each post --}}
-        {{#each posts}}
-          <li>
-            <h3>{{this.title}}</h3>
-            <p>By {{this.username}} on {{this.createdAt}}</p>
-            <p>{{this.content}}</p>
-            
-            <h4>Comments</h4>
-            {{#if this.comments.length}}
-              <ul>
-                {{!-- Loop through each comment --}}
-                {{#each this.comments}}
-                  <li>
-                    <strong>{{this.username}}:</strong> {{this.commentText}} <small>{{this.createdAt}}</small>
-                  </li>
-                {{/each}}
-              </ul>
-            {{else}}
-              <p>No comments yet.</p>
-            {{/if}}
+    <div class="blog-posts">
+        <h2>Blog Posts</h2>
+        {{#if posts.length}}
+          <ul>
+            {{#each posts}}
+              <li>
+                <h3>{{this.title}}</h3>
+                <p>By {{this.username}} on {{this.createdAt}}</p>
+                <p>{{this.content}}</p>
+                
+                <h4>Comments</h4>
+                {{#if this.comments.length}}
+                  <ul>
+                    {{#each this.comments}}
+                      <li>
+                        <strong>{{this.username}}:</strong> {{this.commentText}} <small>{{this.createdAt}}</small>
+                      </li>
+                    {{/each}}
+                  </ul>
+                {{else}}
+                  <p>No comments yet.</p>
+                {{/if}}
 
-            {{!-- If logged in, show the comment form --}}
-            {{#if loggedIn}}
-              <form action="/api/comments" method="POST">
-                <textarea name="commentText" placeholder="Add a comment..." required></textarea>
-                <input type="hidden" name="postId" value="{{this.id}}">
-                <button type="submit">Post Comment</button>
-              </form>
-            {{/if}}
-          </li>
-        {{/each}}
-      </ul>
-    {{else}}
-      <p>No blog posts available yet.</p>
-    {{/if}}
+                {{#if loggedIn}}
+                  <form action="/api/comments" method="POST">
+                    <textarea name="commentText" placeholder="Add a comment..." required></textarea>
+                    <input type="hidden" name="postId" value="{{this.id}}">
+                    <button type="submit">Post Comment</button>
+                  </form>
+                {{/if}}
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <p>No blog posts available yet.</p>
+        {{/if}}
+    </div>
   </main>
 
   <footer>
